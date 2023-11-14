@@ -11,12 +11,9 @@ dependencies:
   '@types/throttle-debounce':
     specifier: ^5.0.2
     version: 5.0.2
-  jotai:
-    specifier: ^2.5.1
-    version: 2.5.1(@types/react@18.2.37)(react@18.2.0)
   loro-crdt:
-    specifier: file://../loro/loro-js
-    version: file:../loro/loro-js
+    specifier: 0.4.1
+    version: 0.4.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2629,22 +2626,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jotai@2.5.1(@types/react@18.2.37)(react@18.2.0):
-    resolution: {integrity: sha512-vanPCCSuHczUXNbVh/iUunuMfrWRL4FdBtAbTRmrfqezJcKb8ybBTg8iivyYuUHapjcDETyJe1E4inlo26bVHA==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=17.0.0'
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@types/react': 18.2.37
-      react: 18.2.0
-    dev: false
-
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -2709,6 +2690,16 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+    dev: false
+
+  /loro-crdt@0.4.1:
+    resolution: {integrity: sha512-VoGJ6dPu38QqMOztU2q5GQgbV5cl0oZ4U0Trgjfz7l/u5S0RHpMhiZhSqSeYO4sieDtTA97GMirt0jYrJO3TGw==}
+    dependencies:
+      loro-wasm: 0.4.1
+    dev: false
+
+  /loro-wasm@0.4.1:
+    resolution: {integrity: sha512-tE+cH1AM8/IoWeA3gwq0DalsXVzqjH1uVL390xyjTvrmAtiNXfPxR8PSQDZQ+z6vTreJToLih2Hc9ajHC99JZA==}
     dev: false
 
   /lru-cache@5.1.1:
@@ -3214,15 +3205,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-  file:../loro/crates/loro-wasm:
-    resolution: {directory: ../loro/crates/loro-wasm, type: directory}
-    name: loro-wasm
-    dev: false
-
-  file:../loro/loro-js:
-    resolution: {directory: ../loro/loro-js, type: directory}
-    name: loro-crdt
-    dependencies:
-      loro-wasm: file:../loro/crates/loro-wasm
-    dev: false
