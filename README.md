@@ -1,4 +1,4 @@
-# Loro History Checkout Demo
+# Loro Time Travel Demo
 
 This demo is intended to demonstrate [Loro](https://github.com/loro-dev/loro)'s high performance and time travel capabilities. The entire code is only about 100 lines.
 
