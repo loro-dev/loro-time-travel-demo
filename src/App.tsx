@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Slider, Theme } from "@radix-ui/themes";
 // @ts-ignore
-import encodedBase64 from "/seph-blog1.txt?url&raw";
-import { Loro, OpId, setPanicHook } from "loro-crdt";
+import jsonUpdates from "/seph-blog-updates.json?url&raw";
+import { Loro, OpId } from "loro-crdt";
 import "./App.css";
 import "@radix-ui/themes/styles.css";
 import { throttle } from "throttle-debounce";
-import { base64ToBinary } from "./utils";
 
-setPanicHook();
 function App() {
   const [checkoutTime, setCheckoutTime] = useState(0);
   const text = useRef("");
@@ -20,11 +18,11 @@ function App() {
   const ran = useRef(false);
 
   useEffect(() => {
-    if (ran.current) {return}
+    if (ran.current) { return }
     ran.current = true;
-    const bytes = base64ToBinary(encodedBase64);
-    loro.current.import(bytes);
-    lastId.current =loro.current.frontiers()[0];
+    console.log(jsonUpdates);
+    loro.current.importJsonUpdates(jsonUpdates);
+    lastId.current = loro.current.frontiers()[0];
     setMaxVersion(lastId.current.counter);
     loro.current.checkout([]);
     text.current = "";
@@ -32,7 +30,7 @@ function App() {
 
   return (
     <div style={{ width: "calc(100% - 32)", padding: 16 }} ref={view}>
-      <Theme style={{fontFamily: "monospace"}}>
+      <Theme style={{ fontFamily: "monospace" }}>
         <Slider
           value={[version]}
           max={maxVersion}
@@ -44,7 +42,7 @@ function App() {
                 loro.current.checkout([]);
               } else {
                 loro.current.checkout([{
-                  peer: lastId.current?.peer ?? 0n,
+                  peer: lastId.current?.peer ?? "0",
                   counter: version,
                 }]);
               }
@@ -56,11 +54,11 @@ function App() {
           }, [])}
         />
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
-          <span style={{  }}>Current Version {version}</span>{" "}
-          <span style={{ }}>Max Version {maxVersion}</span>
+          <span style={{}}>Current Version {version}</span>{" "}
+          <span style={{}}>Max Version {maxVersion}</span>
         </div>
-        <div style={{display: "flex", justifyContent: "space-between", fontFamily: "monospace"}}>
-          <span style={{marginRight: "2em"}}>Checkout duration: {checkoutTime.toFixed(2)} ms</span>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "monospace" }}>
+          <span style={{ marginRight: "2em" }}>Checkout duration: {checkoutTime.toFixed(2)} ms</span>
           <span>Text length: {text.current.length}</span>
         </div>
         <div style={{ position: "relative", marginTop: 8, transform: "scale(1.075)", transformOrigin: "0 0" }}>
